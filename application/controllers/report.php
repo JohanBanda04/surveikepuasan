@@ -64,7 +64,15 @@ class Report extends CI_Controller
         $jmlRating = $this->mod_survei->getRating($data['tgl_awal_sql'],$data['tgl_akhir_sql']);
 
         $data['jumlah_responden'] = $jmlResponden;
-        $data['rating'] = number_format((float)$jmlRating/$jmlResponden, 2, '.', '');
+        if($jmlResponden >  0){
+//            $jmlRating = $this->mod_survei->getRating($data['tgl_awal_sql'],$data['tgl_akhir_sql']);
+            $data['rating'] = number_format((float)$jmlRating/$jmlResponden, 2, '.', '');
+        } else if ($jmlResponden <= 0) {
+//            $jmlRating = 0;
+//            $data['rating'] = 0;
+            $data['rating'] = number_format((float)0, 2, '.', '');
+        }
+//        $data['rating'] = number_format((float)$jmlRating/$jmlResponden, 2, '.', '');
         $data['agenda_data'] = "";
         $p = 'laporan_data';
         $this->load->view("header_report", $data);
